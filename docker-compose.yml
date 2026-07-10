@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  # ── MongoDB ──────────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: ecommerce_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: ecommerce
+
+
+  # ── Backend API ───────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecommerce_backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    env_file:
+      - ./backend/.env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/ecommerce
+      NODE_ENV: development
+      CLIENT_URL: http://localhost:5173
+
+  # ── Frontend (dev server) ─────────────────────────────────────────────────────
+  frontend:
+    image: node:20-alpine
+    container_name: ecommerce_frontend
+    working_dir: /app
+    ports:
+      - "5173:5173"  # 👈 Maps your working browser port directly
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    # 👈 FORCES VITE TO BRIDGE NETWORK TO WINDOWS HOST WITHOUT CHANGING CONFIG FILES
+    command: sh -c "npm install --legacy-peer-deps && npx vite --host 0.0.0.0 --port 5173"
+    environment:
+      VITE_API_URL: http://localhost:5000  # 👈 Tells Vite browser client where to send AJAX calls
+      VITE_SOCKET_URL: http://localhost:5000
+    depends_on:
+      - backend
+
+
+volumes:
+  mongo_data:

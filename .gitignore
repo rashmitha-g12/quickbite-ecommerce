@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment files – never commit these
+.env
+.env.local
+.env.production
+
+# Build outputs
+build/
+dist/
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Docker
+.dockerignore
+
+.windsurfignore
