@@ -41,16 +41,16 @@
 ### Customer Experience
 | Home — Product Grid | Login Page | OTP Verification |
 |---|---|---|
-| ![Home](screenshots/01_home.png) | ![Login](screenshots/02_login.png) | ![OTP](screenshots/03_otp.png) |
+| ![Home](Screenshots/01_home.png) | ![Login](Screenshots/02_login.png) | ![OTP](Screenshots/03_otp.png) |
 
 | Checkout | Live Order Tracking |
 |---|---|
-| ![Checkout](screenshots/04_checkout.png) | ![Tracking](screenshots/05_order_tracking.png) |
+| ![Checkout](Screenshots/04_checkout.png) | ![Tracking](Screenshots/05_order_tracking.png) |
 
 ### Admin Experience
 | Dashboard — KPIs & Chart | Live Orders Table | Product Management |
 |---|---|---|
-| ![Dashboard](screenshots/06_admin_dashboard.png) | ![Orders](screenshots/07_admin_orders.png) | ![Products](screenshots/08_admin_products.png) |
+| ![Dashboard](Screenshots/06_admin_dashboard.png) | ![Orders](Screenshots/07_admin_orders.png) | ![Products](Screenshots/08_admin_products.png) |
 
 ---
 
