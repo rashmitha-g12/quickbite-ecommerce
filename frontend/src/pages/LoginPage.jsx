@@ -283,6 +283,8 @@ const OTPStep = ({ email, flow, onBack, onSuccess }) => {
     setLoading(true); setError("");
     try {
       const { data } = await authAPI.verifyOTP({ email, otp: code });
+      // Note: localStorage is used for simplicity in this learning project.
+      // Production apps should use httpOnly cookies for better security.
       localStorage.setItem("userInfo", JSON.stringify(data));
       setSuccess(true);
       toast.success("Email verified! Welcome to QuickBite 🎉");

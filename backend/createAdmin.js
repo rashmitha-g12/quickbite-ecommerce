@@ -10,9 +10,9 @@
  */
 
 require("dotenv").config();
-const mongoose  = require("mongoose");
-const readline  = require("readline");
-const User      = require("./models/User");
+const mongoose = require("mongoose");
+const readline = require("readline");
+const User = require("./models/User");
 const connectDB = require("./config/db");
 
 // ── Parse CLI args ────────────────────────────────────────────────────────────
@@ -23,7 +23,7 @@ const getArg = (flag) => {
 };
 
 const rl = readline.createInterface({
-  input:  process.stdin,
+  input: process.stdin,
   output: process.stdout,
 });
 
@@ -38,8 +38,8 @@ const run = async () => {
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
   // Get details from args or prompt
-  const name     = getArg("--name")     || await ask("  Admin Name     : ");
-  const email    = getArg("--email")    || await ask("  Admin Email    : ");
+  const name = getArg("--name") || await ask("  Admin Name     : ");
+  const email = getArg("--email") || await ask("  Admin Email    : ");
   const password = getArg("--password") || await ask("  Admin Password : ");
 
   rl.close();
@@ -65,7 +65,7 @@ const run = async () => {
       console.log(`\n⚠️   ${email} is already an admin account.\n`);
     } else {
       // Upgrade existing user to admin
-      existing.role            = "admin";
+      existing.role = "admin";
       existing.isEmailVerified = true;
       await existing.save({ validateBeforeSave: false });
       console.log(`\n✅  Existing user ${email} upgraded to admin role.\n`);
@@ -76,17 +76,17 @@ const run = async () => {
 
   // Create new admin
   await User.create({
-    name:            name.trim(),
-    email:           email.toLowerCase().trim(),
-    password:        password.trim(),
-    role:            "admin",
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    password: password.trim(),
+    role: "admin",
     isEmailVerified: true,   // admins don't need OTP verification
   });
 
   console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("  ✅  Admin account created!");
   console.log(`  Email    : ${email}`);
-  console.log(`  Password : ${password}`);
+  console.log(`  Password : ${"*".repeat(password.length)}`);
   console.log("  Role     : admin");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
   console.log("  Login at: http://127.0.0.1:5173/login\n");

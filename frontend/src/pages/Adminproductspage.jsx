@@ -157,7 +157,8 @@ const ProductModal = ({ product, onClose, onSaved }) => {
                     {/* Image preview + URL */}
                     <div className="flex gap-4 items-start">
                         <div className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex-shrink-0 overflow-hidden flex items-center justify-center">
-                            {imgPreview ? (
+                            {/* Only render the image if imgPreview is present AND passes a safe URL protocol check */}
+                            {imgPreview && /^https?:\/\/.+/.test(imgPreview) ? (
                                 <img
                                     src={imgPreview}
                                     alt="preview"
@@ -183,6 +184,7 @@ const ProductModal = ({ product, onClose, onSaved }) => {
                             </p>
                         </Field>
                     </div>
+
 
                     {/* Name */}
                     <Field label="Product Name *" error={errors.name}>

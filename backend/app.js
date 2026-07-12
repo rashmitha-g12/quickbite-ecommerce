@@ -30,6 +30,9 @@ app.use(
 // ── Body parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true }));
+// Sanitize user input to prevent NoSQL injection
+const mongoSanitize = require("express-mongo-sanitize");
+app.use(mongoSanitize());
 
 // ── HTTP request logging (dev only) ──────────────────────────────────────────
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
